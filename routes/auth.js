@@ -12,7 +12,7 @@ router.post('/register', async (req, res) => {
     const newUser = new User({
         username: req.body.username,
         email: req.body.email,
-        password: CryptoJS.AES.encrypt(req.body.password, process.env.PASSWORD_SECRET).toString(),
+        password: CryptoJS.AES.encrypt((req.body.password), process.env.PASSWORD_SECRET).toString(),
     });
     console.log("🚀 ~ file: auth.js:16 ~ router.post ~ newUser", newUser)
 
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
 
 
         if (originaPassword != req.body.password) {
-            res.status(401).json('Wrong credentials!');
+            res.status(401).json('Wrong credentials! password');
             return;
         }
 
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         res.status(500).json(err);
-        console.log("🚀 ~ file: auth.js:57 ~ router.post ~ err", err)
+        // console.log("🚀 ~ file: auth.js:57 ~ router.post ~ err", err)
     }
 });
 
